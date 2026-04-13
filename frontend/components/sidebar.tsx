@@ -8,6 +8,8 @@ import { clearStoredSession } from "../lib/session";
 
 type SidebarProps = {
   user: AuthUser;
+  isOpen?: boolean;
+  onClose?: () => void;
 };
 
 type NavigationItem = {
@@ -26,33 +28,50 @@ const navigationItems: NavigationItem[] = [
 function SidebarNavigationItem({
   item,
   isActive,
+  onNavigate,
 }: {
   item: NavigationItem;
   isActive: boolean;
+  onNavigate?: () => void;
 }) {
   const className = isActive ? "sidebar-nav-item active" : "sidebar-nav-item";
 
   return (
-    <Link className={className} href={item.href}>
+    <Link className={className} href={item.href} onClick={onNavigate}>
       {item.label}
     </Link>
   );
 }
 
-export function Sidebar({ user }: SidebarProps) {
+export function Sidebar({ user, isOpen = false, onClose }: SidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
 
   function handleLogout() {
+    onClose?.();
     clearStoredSession();
     router.replace("/");
   }
 
+  const className = isOpen ? "sidebar-panel sidebar-panel-open" : "sidebar-panel";
+
   return (
-    <aside className="sidebar-panel" aria-label="Primary navigation">
+    <aside
+      id="primary-sidebar"
+      className={className}
+      aria-label="Primary navigation"
+    >
       <div className="sidebar-content">
-        <header>
+        <header className="sidebar-header">
           <h1 className="sidebar-title">Tensor Wealth</h1>
+          <button
+            className="ghost-button sidebar-close-button"
+            type="button"
+            onClick={onClose}
+            aria-label="Close navigation"
+          >
+            Close
+          </button>
         </header>
 
         <nav className="sidebar-nav">
@@ -61,6 +80,7 @@ export function Sidebar({ user }: SidebarProps) {
               key={item.label}
               item={item}
               isActive={item.href === pathname}
+              onNavigate={onClose}
             />
           ))}
         </nav>

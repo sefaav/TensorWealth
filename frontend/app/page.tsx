@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, KeyboardEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import {
@@ -46,8 +46,28 @@ export default function HomePage() {
     }));
   }
 
+  function handleFormKeyDown(event: KeyboardEvent<HTMLFormElement>) {
+    if (event.key !== "Enter" || isSubmitting) {
+      return;
+    }
+
+    const target = event.target;
+
+    if (!(target instanceof HTMLInputElement)) {
+      return;
+    }
+
+    event.preventDefault();
+    event.currentTarget.requestSubmit();
+  }
+
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    if (isSubmitting) {
+      return;
+    }
+
     setFeedback(null);
     setIsSubmitting(true);
 
@@ -120,7 +140,11 @@ export default function HomePage() {
           </button>
         </div>
 
-        <form className="auth-form" onSubmit={handleSubmit}>
+        <form
+          className="auth-form"
+          onSubmit={handleSubmit}
+          onKeyDown={handleFormKeyDown}
+        >
           {mode === "register" ? (
             <label className="field">
               <span>First Name</span>
@@ -130,6 +154,7 @@ export default function HomePage() {
                 onChange={(event) => updateField("firstName", event.target.value)}
                 placeholder="John"
                 minLength={2}
+                enterKeyHint="next"
                 required
               />
             </label>
@@ -142,6 +167,7 @@ export default function HomePage() {
               value={form.email}
               onChange={(event) => updateField("email", event.target.value)}
               placeholder="you@exemple.com"
+              enterKeyHint="next"
               required
             />
           </label>
@@ -154,6 +180,7 @@ export default function HomePage() {
               onChange={(event) => updateField("password", event.target.value)}
               placeholder="At least 8 characters"
               minLength={8}
+              enterKeyHint={mode === "register" ? "done" : "go"}
               required
             />
           </label>

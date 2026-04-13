@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "TensorWealth | Authentication",
-  description: "Authentication page with login and register.",
+  title: "Tensor Wealth",
+  description: "Track your wealth, analyze your portfolio, and manage your assets from one dashboard.",
 };
 
 export default function RootLayout({

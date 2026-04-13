@@ -1,6 +1,6 @@
 "use client";
 
-import { Sidebar } from "../../components/sidebar";
+import { AppShell } from "../../components/app-shell";
 import { useProtectedPage } from "../../components/protected-page";
 
 export default function DashboardPage() {
@@ -11,9 +11,8 @@ export default function DashboardPage() {
   }
 
   return (
-    <main className="dashboard-layout">
-      <Sidebar user={session.user} />
-      <h1>Dashboard</h1>
-    </main>
+    <AppShell user={session.user}>
+      <h1 className="page-title">Dashboard</h1>
+    </AppShell>
   );
 }
