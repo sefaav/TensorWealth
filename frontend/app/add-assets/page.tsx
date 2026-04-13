@@ -3,7 +3,7 @@
 import { Sidebar } from "../../components/sidebar";
 import { useProtectedPage } from "../../components/protected-page";
 
-export default function DashboardPage() {
+export default function AddAssetsPage() {
   const session = useProtectedPage();
 
   if (!session) {
@@ -13,7 +13,7 @@ export default function DashboardPage() {
   return (
     <main className="dashboard-layout">
       <Sidebar user={session.user} />
-      <h1>Dashboard</h1>
+      <h1>Add Assets</h1>
     </main>
   );
 }
