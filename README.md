@@ -115,12 +115,12 @@ TensorWealth/
 
 Planned next steps for the project:
 
-- Implement secure logout and session handling
-- Expand the dashboard layout and navigation
 - Connect external financial institutions
-- Introduce migrations with Alembic
 - Add net worth and portfolio entities
+- Expand the dashboard layout
 - Build allocation and performance views
+- Introduce migrations with Alembic
+- Implement secure logout and session handling
 - Add analytics and optimization tooling
 
 ## License
