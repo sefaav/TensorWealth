@@ -2,14 +2,14 @@
 
 TensorWealth is a data-driven wealth management platform built with Next.js, FastAPI, and PostgreSQL.
 
-The project currently provides the first MVP building block: authentication. Users can register, log in, receive a JWT, and get redirected to a protected dashboard entry point.
+The project currently provides the first MVP building block: authentication. Users can register, log in, receive a JWT, and access protected app pages through a responsive sidebar shell.
 
 ## Current Features
 
 - register and login flow
 - JWT-based authentication
 - PostgreSQL-backed user persistence
-- protected `/dashboard` route
+- protected app routes with responsive sidebar navigation
 - root-level `npm run dev` launcher
 
 ## Stack
@@ -64,42 +64,52 @@ Local URLs:
 
 - `/` authentication page
 - `/dashboard` protected dashboard placeholder
+- `/portfolio` protected placeholder page
+- `/budget` protected placeholder page
+- `/analysis` protected placeholder page
+- `/add-assets` protected placeholder page
 
 ## Project Structure
 
 ```text
 TensorWealth/
-├── backend/
-│   ├── app/
-│   │   ├── core/        # Settings and security helpers
-│   │   ├── db/          # SQLAlchemy base and session
-│   │   ├── models/      # Database models
-│   │   ├── routers/     # API routes
-│   │   ├── schemas/     # Pydantic schemas
-│   │   ├── services/    # Business logic
-│   │   └── main.py      # FastAPI entry point
-│   ├── .env.example
-│   └── requirements.txt
-├── frontend/
-│   ├── app/
-│   │   ├── dashboard/   # Protected dashboard page
-│   │   ├── globals.css  # Global styling
-│   │   ├── layout.tsx
-│   │   └── page.tsx     # Login / register page
-│   ├── lib/             # API and session helpers
-│   ├── .env.local.example
-│   └── package.json
-├── docker-compose.yml   # Local PostgreSQL
-├── dev.cmd              # Windows dev launcher
-├── package.json         # Root launcher: npm run dev
-└── README.md
+|-- backend/
+|   |-- app/
+|   |   |-- core/            # Settings and security helpers
+|   |   |-- db/              # SQLAlchemy base and session
+|   |   |-- models/          # Database models
+|   |   |-- routers/         # API routes
+|   |   |-- schemas/         # Pydantic schemas
+|   |   |-- services/        # Business logic
+|   |   `-- main.py          # FastAPI entry point
+|   |-- .env.example
+|   `-- requirements.txt
+|-- frontend/
+|   |-- app/
+|   |   |-- add-assets/      # Protected placeholder page
+|   |   |-- analysis/        # Protected placeholder page
+|   |   |-- budget/          # Protected placeholder page
+|   |   |-- dashboard/       # Protected dashboard page
+|   |   |-- portfolio/       # Protected placeholder page
+|   |   |-- globals.css      # Global styling
+|   |   |-- icon.png         # App favicon
+|   |   |-- layout.tsx
+|   |   `-- page.tsx         # Login / register page
+|   |-- components/          # Shared app shell and sidebar
+|   |-- lib/                 # API and session helpers
+|   |-- .env.local.example
+|   `-- package.json
+|-- docker-compose.yml       # Local PostgreSQL
+|-- dev.cmd                  # Windows dev launcher
+|-- package.json             # Root launcher: npm run dev
+`-- README.md
 ```
 
 ## Notes
 
 - the backend currently creates the `users` table on startup
 - authentication state is stored in browser local storage
-- the dashboard page is intentionally empty for now
+- protected app pages are intentionally placeholders for now
 
 ## Future Implementation
 
